@@ -7,7 +7,7 @@ import {
 import AddDeck from './AddDeck'
 import DeckListView from './DeckListView'
 import DeckView from './DeckView'
-
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 
 const DecksStack = createStackNavigator({
   DeckListView: {
@@ -22,13 +22,15 @@ const TabNavigator = createBottomTabNavigator({
   DecksStack: {
     screen: DecksStack,
     navigationOptions: {
-      tabBarLabel: 'Decks'
+      tabBarLabel: 'Decks',
+      tabBarIcon: <MaterialCommunityIcons name='cards-outline' size={30} />
     }
   },
   AddDeck: {
     screen: AddDeck,
     navigationOptions: {
-      tabBarLabel: 'New Deck'
+      tabBarLabel: 'New Deck',
+      tabBarIcon: <Ionicons name='md-add-circle-outline' size={30} />
     }
   }
 })
