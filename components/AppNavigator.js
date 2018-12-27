@@ -7,14 +7,25 @@ import {
 import AddDeck from './AddDeck'
 import DeckListView from './DeckListView'
 import DeckView from './DeckView'
+import Quiz from './Quiz'
+import AddCard from './AddCard'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 
 const DecksStack = createStackNavigator({
   DeckListView: {
-    screen: DeckListView
+    screen: DeckListView,
+    navigationOptions: {
+      title: 'Flashcard Decks'
+    }
   },
   DeckView: {
     screen: DeckView
+  },
+  Quiz: {
+    screen: Quiz
+  },
+  AddCard: {
+    screen: AddCard
   }
 })
 

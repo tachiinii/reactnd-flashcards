@@ -1,11 +1,12 @@
 import React from 'react'
 import { Text, Platform, TouchableOpacity, StyleSheet } from 'react-native'
 
-export default function ActionButton({ label, onPress }) {
+export default function ActionButton({ label, onPress, disabled = false }) {
   return (
     <TouchableOpacity
       style={Platform.OS === 'ios' ? styles.iosButton : styles.androidButton}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={styles.buttonText}>{ label }</Text>
     </TouchableOpacity>
   )
@@ -27,7 +28,6 @@ const styles = StyleSheet.create({
     height: 45,
     paddingLeft: 30,
     paddingRight: 30,
-    alignSelf: 'flex-end',
     justifyContent: 'center',
     alignItems: 'center',
   },

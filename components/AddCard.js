@@ -2,14 +2,22 @@ import React, { Component } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
 import ActionButton from './ActionButton'
 
-export default class AddDeck extends Component {
+export default class AddCard extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: `Add Card: ${navigation.getParam('deck').name}`
+    }
+  }
+
   state = {
-    input: 'New deck name'
+    inputQ: 'Enter question',
+    inputA: 'Enter answer'
   }
 
   handleTextChange = (input) => {
     this.setState({
-      input
+      inputQ,
+      inputA
     })
   }
 
@@ -21,10 +29,18 @@ export default class AddDeck extends Component {
       <View>
         <TextInput
           style={styles.textField}
-          value={this.state.input}
+          value={this.state.inputQ}
           onChangeText={this.handleTextChange}
         />
-        <ActionButton label='Create Deck' onPress={this.handleSubmit} />
+        <TextInput
+          style={styles.textField}
+          value={this.state.inputA}
+          onChangeText={this.handleTextChange}
+        />
+        <ActionButton
+          label='Create Card'
+          onPress={this.handleSubmit}
+        />
       </View>
     )
   }
