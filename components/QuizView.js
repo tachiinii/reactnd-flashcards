@@ -26,13 +26,11 @@ export default class QuizView extends Component {
   }
 
   handleResponse = (cardId, isCorrect = false) => {
-
     this.setState((state) => ({
       cardSide: 'question',
       completed: state.completed.concat(cardId),
       correct: isCorrect ? state.correct.concat(cardId) : state.correct
     }))
-    console.log('Responsed: ', cardId)
   }
 
   render() {
