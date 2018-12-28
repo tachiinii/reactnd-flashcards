@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { gray, green, white } from '../utils/colors'
+import { getPercent } from '../utils/helpers'
 import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
 import ActionButton from './ActionButton'
@@ -49,9 +50,14 @@ export default class QuizView extends Component {
           <View style={styles.quizResults}>
             <Text style={styles.quizResultsLabel}>Quiz Results</Text>
             <Text style={styles.quizResultsDetails}>You've answered</Text>
-            <Text style={styles.quizResultsDetails}>{correct.length}/{cardTotal} correctly</Text>
+            <Text style={styles.quizResultsDetails}>{correct.length}/{cardTotal} ({getPercent(correct.length, cardTotal)}%) correctly</Text>
           </View>
-          <TextButton style={{marginTop: 12}}>Back to deck</TextButton>
+          <TextButton
+            style={{marginTop: 12}}
+            onPress={() => this.props.navigation.navigate('DeckView',{deck})}
+          >
+            Back to deck
+          </TextButton>
         </View>
       )
     }
