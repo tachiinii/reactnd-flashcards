@@ -24,10 +24,12 @@ export default class QuizView extends Component {
     }))
   }
 
-  handleResponse = (cardId) => {
+  handleResponse = (cardId, isCorrect = false) => {
+
     this.setState((state) => ({
+      cardSide: 'question',
       completed: state.completed.concat(cardId),
-      cardSide: 'question'
+      correct: isCorrect ? state.correct.concat(cardId) : state.correct
     }))
     console.log('Responsed: ', cardId)
   }
@@ -68,7 +70,7 @@ export default class QuizView extends Component {
             >
               Show the question
             </TextButton>
-            <ActionButton label='Correct' onPress={() => this.handleResponse(deck.cards[currentCard].id)} />
+            <ActionButton label='Correct' onPress={() => this.handleResponse(deck.cards[currentCard].id, true)} />
             <ActionButton label='Incorrect' onPress={() => this.handleResponse(deck.cards[currentCard].id)} />
           </View>
         : <View>
