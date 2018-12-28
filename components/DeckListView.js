@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { greyLight } from '../utils/colors'
+import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
 import DeckList from './DeckList'
 
@@ -36,12 +38,17 @@ export default class DeckListView extends Component {
   // }
   render() {
     if (this.state.decks === undefined) {
-      return <View>
+      return <View style={baseStyles.container}>
         <Text>No decks found. Use the tab link to create your first deck.</Text>
       </View>
     }
     else {
-      return <DeckList navigation={this.props.navigation} decks={this.state.decks} />
+      return <View style={baseStyles.container}>
+        <DeckList navigation={this.props.navigation} decks={this.state.decks} />
+      </View>
     }
   }
 }
+
+const styles = StyleSheet.create({
+})

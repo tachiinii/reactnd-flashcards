@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { gray, green, white } from '../utils/colors'
 import TextButton from './TextButton'
 
 export default class DeckList extends Component {
@@ -9,11 +10,11 @@ export default class DeckList extends Component {
     return (
       <View>
         {Object.keys(decks).map((deckId) => (
-          <View key={deckId}>
-            <TextButton onPress={() => this.props.navigation.navigate('DeckView', {deck: decks[deckId]})}>
+          <View key={deckId} style={styles.deckItem}>
+            <TextButton style={styles.deckName} onPress={() => this.props.navigation.navigate('DeckView', {deck: decks[deckId]})}>
               {decks[deckId].name}
             </TextButton>
-            <Text>{Object.keys(decks[deckId].cards).length} cards</Text>
+            <Text style={styles.deckDetails}>{Object.keys(decks[deckId].cards).length} cards</Text>
           </View>
         ))}
       </View>
@@ -21,4 +22,21 @@ export default class DeckList extends Component {
   }
 }
 
-
+const styles = StyleSheet.create({
+  deckItem: {
+    borderWidth: 1,
+    borderColor: gray,
+    backgroundColor: white,
+    padding: 12,
+    marginBottom: 12
+  },
+  deckName: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: green
+  },
+  deckDetails: {
+    fontSize: 14,
+    textAlign: 'center'
+  }
+})

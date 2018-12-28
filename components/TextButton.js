@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { green } from '../utils/colors'
 
 export default function TextButton({ children, onPress, style = {} }) {
   return (
@@ -11,6 +12,8 @@ export default function TextButton({ children, onPress, style = {} }) {
 
 const styles = StyleSheet.create({
   reset: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 14,
+    color: green
   }
 })

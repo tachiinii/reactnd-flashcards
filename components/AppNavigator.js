@@ -4,11 +4,12 @@ import {
   createBottomTabNavigator,
   createAppContainer
 } from 'react-navigation'
-import AddDeck from './AddDeck'
+import AddDeckView from './AddDeckView'
 import DeckListView from './DeckListView'
 import DeckView from './DeckView'
-import Quiz from './Quiz'
-import AddCard from './AddCard'
+import QuizView from './QuizView'
+import AddCardView from './AddCardView'
+import { black, green, gray, white } from '../utils/colors'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons'
 
 const DecksStack = createStackNavigator({
@@ -21,11 +22,36 @@ const DecksStack = createStackNavigator({
   DeckView: {
     screen: DeckView
   },
-  Quiz: {
-    screen: Quiz
+  QuizView: {
+    screen: QuizView
   },
-  AddCard: {
-    screen: AddCard
+  AddCardView: {
+    screen: AddCardView
+  }
+},
+{
+  defaultNavigationOptions: {
+    headerTintColor: white,
+    headerStyle: {
+      backgroundColor: black,
+    }
+  }
+})
+
+const AddDeckStack = createStackNavigator({
+  AddDeckView: {
+    screen: AddDeckView,
+    navigationOptions: {
+      title: 'Add Deck'
+    }
+  }
+},
+{
+  defaultNavigationOptions: {
+    headerTintColor: white,
+    headerStyle: {
+      backgroundColor: black,
+    }
   }
 })
 
@@ -34,14 +60,35 @@ const TabNavigator = createBottomTabNavigator({
     screen: DecksStack,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: <MaterialCommunityIcons name='cards-outline' size={30} />
+      tabBarIcon: ({ tintColor }) => (
+        <MaterialCommunityIcons name='cards-outline' color={tintColor} size={30} />
+      )
     }
   },
-  AddDeck: {
-    screen: AddDeck,
+  AddDeckStack: {
+    screen: AddDeckStack,
     navigationOptions: {
       tabBarLabel: 'New Deck',
-      tabBarIcon: <Ionicons name='md-add-circle-outline' size={30} />
+      tabBarIcon: ({ tintColor }) => (
+        <Ionicons name='md-add-circle-outline' color={tintColor} size={30} />
+      )
+    }
+  }
+},
+{
+  tabBarOptions: {
+    activeTintColor: white,
+    inactiveTintColor: gray,
+    style: {
+      height: 56,
+      backgroundColor: green,
+      shadowColor: `rgba(0, 0, 0, 0.24)`,
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1,
     }
   }
 })

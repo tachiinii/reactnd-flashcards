@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
+import baseStyles from '../utils/baseStyles'
+import formStyles from '../utils/formStyles'
 import ActionButton from './ActionButton'
 
-export default class AddDeck extends Component {
+export default class AddDeckView extends Component {
   state = {
     input: 'New deck name'
   }
@@ -18,9 +20,9 @@ export default class AddDeck extends Component {
 
   render() {
     return (
-      <View>
+      <View style={baseStyles.container}>
         <TextInput
-          style={styles.textField}
+          style={formStyles.textField}
           value={this.state.input}
           onChangeText={this.handleTextChange}
         />
@@ -29,14 +31,3 @@ export default class AddDeck extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  textField: {
-    width: 200,
-    height: 44,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#757575',
-    margin: 50
-  }
-})

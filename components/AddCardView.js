@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
+import baseStyles from '../utils/baseStyles'
+import formStyles from '../utils/formStyles'
 import ActionButton from './ActionButton'
 
-export default class AddCard extends Component {
+export default class AddCardView extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: `Add Card: ${navigation.getParam('deck').name}`
@@ -26,16 +28,20 @@ export default class AddCard extends Component {
 
   render() {
     return (
-      <View>
+      <View style={baseStyles.container}>
         <TextInput
-          style={styles.textField}
+          style={formStyles.textField}
           value={this.state.inputQ}
           onChangeText={this.handleTextChange}
+          multiline={true}
+          numberOfLines={2}
         />
         <TextInput
-          style={styles.textField}
+          style={formStyles.textField}
           value={this.state.inputA}
           onChangeText={this.handleTextChange}
+          multiline={true}
+          numberOfLines={2}
         />
         <ActionButton
           label='Create Card'
@@ -45,14 +51,3 @@ export default class AddCard extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  textField: {
-    width: 200,
-    height: 44,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#757575',
-    margin: 50
-  }
-})
