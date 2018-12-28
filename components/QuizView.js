@@ -18,6 +18,12 @@ export default class QuizView extends Component {
     cardSide: 'question'
   }
 
+  toggleCard = () => {
+    this.setState((state) => ({
+      cardSide: state.cardSide === 'question' ? 'answer' : 'question'
+    }))
+  }
+
   render() {
     const { completed, correct, cardSide } = this.state
     const { deck } = this.props.navigation.state.params
@@ -48,7 +54,10 @@ export default class QuizView extends Component {
         ? <View>
             <Text style={styles.cardLabel}>Answer:</Text>
             <Text style={styles.cardText}>{deck.cards[currentCard].answer}</Text>
-            <TextButton style={{margin: 12}}>
+            <TextButton
+              style={{margin: 12}}
+              onPress={this.toggleCard}
+            >
               Show the question
             </TextButton>
             <ActionButton label='Correct' />
@@ -57,7 +66,10 @@ export default class QuizView extends Component {
         : <View>
             <Text style={styles.cardLabel}>Question:</Text>
             <Text style={styles.cardText}>{deck.cards[currentCard].question}</Text>
-            <TextButton style={{margin: 12}}>
+            <TextButton
+              style={{margin: 12}}
+              onPress={this.toggleCard}
+            >
               Show the answer
             </TextButton>
           </View>
