@@ -32,6 +32,9 @@ export default StyleSheet.create({
     marginTop: 12,
     marginBottom: 12
   },
+  disabledButton: {
+    backgroundColor: gray
+  },
   buttonText: {
     color: white,
     fontSize: 22,

@@ -5,9 +5,13 @@ import formStyles from '../utils/formStyles'
 export default function ActionButton({ label, onPress, disabled = false }) {
   return (
     <TouchableOpacity
-      style={Platform.OS === 'ios' ? formStyles.iosButton : formStyles.androidButton}
+      style={[
+        Platform.OS === 'ios' ? formStyles.iosButton : formStyles.androidButton,
+        disabled ? formStyles.disabledButton : null
+      ]}
       onPress={onPress}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       <Text style={formStyles.buttonText}>{ label }</Text>
     </TouchableOpacity>
   )
