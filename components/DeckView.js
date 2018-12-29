@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { deleteDeck } from '../actions'
 import { green } from '../utils/colors'
 import baseStyles from '../utils/baseStyles'
 import ActionButton from './ActionButton'
 import TextButton from './TextButton'
 
-export default class DeckView extends Component {
+class DeckView extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('deck').name
     }
+  }
+
+  handleDelete = (deckId) => {
+    console.log('Deleting: ', deckId)
   }
 
   render() {
@@ -27,7 +33,10 @@ export default class DeckView extends Component {
         onPress={() => this.props.navigation.navigate('QuizView', {deck})}
         disabled={cardCount > 0 ? false : true}
       />
-      <TextButton style={{marginTop: 12}}>
+      <TextButton
+        style={{marginTop: 12}}
+        onPress={() => this.handleDelete(deck.id)}
+      >
         Delete deck
       </TextButton>
     </View>
@@ -48,3 +57,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+export default connect()(DeckView)
