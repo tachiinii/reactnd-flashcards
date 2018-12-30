@@ -19,7 +19,7 @@ export function addDeck(deck) {
 
 export function deleteDeck(deckId) {
   return {
-    type: RECEIVE_DECKS,
+    type: DELETE_DECK,
     deckId
   }
 }

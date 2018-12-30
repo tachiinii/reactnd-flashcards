@@ -14,8 +14,15 @@ class DeckView extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.deck !== undefined
+  }
+
   handleDelete = (deckId) => {
-    console.log('Deleting: ', deckId)
+    this.props.dispatch(
+      deleteDeck(deckId)
+    )
+    this.props.navigation.navigate('DeckListView')
   }
 
   render() {
