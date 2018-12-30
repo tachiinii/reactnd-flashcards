@@ -9,14 +9,12 @@ import ActionButton from './ActionButton'
 
 class AddDeckView extends Component {
   state = {
-    input: '',
-    submitDisabled: true
+    input: ''
   }
 
   handleTextChange = (input) => {
     this.setState({
-      input,
-      submitDisabled: input === '' ? true : false
+      input
     })
   }
 
@@ -28,8 +26,7 @@ class AddDeckView extends Component {
     )
 
     this.setState({
-      input: '',
-      submitDisabled: true
+      input: ''
     })
 
     navigation.navigate('DeckListView')
@@ -47,7 +44,7 @@ class AddDeckView extends Component {
         <ActionButton
           label='Create Deck'
           onPress={this.handleSubmit}
-          disabled={this.state.submitDisabled}
+          disabled={this.state.input === ''}
         />
       </View>
     )

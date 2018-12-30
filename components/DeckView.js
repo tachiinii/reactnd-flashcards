@@ -19,8 +19,9 @@ class DeckView extends Component {
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params
+    const { deck } = this.props
     const cardCount = Object.keys(deck.cards).length
+
     return <View style={baseStyles.container}>
       <Text style={styles.deckName}>{deck.name}</Text>
       <Text style={styles.deckDetails}>{cardCount} cards</Text>
@@ -58,4 +59,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(DeckView)
+function mapStateToProps(decks, props) {
+  return {
+    deck: decks[props.navigation.state.params.deck.id]
+  }
+}
+
+export default connect(mapStateToProps)(DeckView)

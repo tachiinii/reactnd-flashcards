@@ -15,6 +15,19 @@ export function formatDeck (deckName) {
   }
 }
 
+export function formatCard (question, answer) {
+  const cardId = _generateId()
+
+  return {
+    [cardId]: {
+      id: cardId,
+      timestamp: Date.now(),
+      question: question,
+      answer: answer
+    }
+  }
+}
+
 function _generateId () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }

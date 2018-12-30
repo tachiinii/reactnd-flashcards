@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { View, TextInput, StyleSheet } from 'react-native'
+import { View, Form, TextInput, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 import baseStyles from '../utils/baseStyles'
 import formStyles from '../utils/formStyles'
+import { formatCard } from '../utils/helpers'
+import { addCard } from '../actions'
 import ActionButton from './ActionButton'
 
-export default class AddCardView extends Component {
+class AddCardView extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: `Add Card: ${navigation.getParam('deck').name}`
@@ -12,42 +15,65 @@ export default class AddCardView extends Component {
   }
 
   state = {
-    inputQ: 'Enter question',
-    inputA: 'Enter answer'
+    inputQuestion: '',
+    inputAnswer: ''
   }
 
-  handleTextChange = (input) => {
+  handleTextChange = (text, inputName) => {
     this.setState({
-      inputQ,
-      inputA
+      [inputName]: text
     })
   }
 
   handleSubmit = () => {
+    const { dispatch, navigation } = this.props
+    const { inputQuestion, inputAnswer } = this.state
+
+    deckId = navigation.getParam('deck').id
+
+    dispatch(
+      addCard(formatCard(inputQuestion, inputAnswer), deckId)
+    )
+
+    this.setState({
+      inputQuestion: '',
+      inputAnswer: ''
+    })
+
+    navigation.navigate('DeckView', {deckId})
+
   }
 
   render() {
+    const { inputQuestion, inputAnswer } = this.state
     return (
       <View style={baseStyles.container}>
-        <TextInput
-          style={formStyles.textField}
-          value={this.state.inputQ}
-          onChangeText={this.handleTextChange}
-          multiline={true}
-          numberOfLines={2}
-        />
-        <TextInput
-          style={formStyles.textField}
-          value={this.state.inputA}
-          onChangeText={this.handleTextChange}
-          multiline={true}
-          numberOfLines={2}
-        />
-        <ActionButton
-          label='Create Card'
-          onPress={this.handleSubmit}
-        />
+          <TextInput
+            name='inputQuestion'
+            style={formStyles.textField}
+            placeholder='Enter a question'
+            value={inputQuestion}
+            onChangeText={(t) => this.handleTextChange(t, 'inputQuestion')}
+            multiline={true}
+            numberOfLines={2}
+          />
+          <TextInput
+            name='inputAnswer'
+            style={formStyles.textField}
+            placeholder='Enter the answer'
+            value={inputAnswer}
+            onChangeText={(t) => this.handleTextChange(t, 'inputAnswer')}
+            multiline={true}
+            numberOfLines={2}
+          />
+          <ActionButton
+            label='Create Card'
+            onPress={this.handleSubmit}
+            disabled={inputQuestion === '' || inputAnswer === ''}
+          />
       </View>
     )
   }
 }
+
+export default connect()(AddCardView)
