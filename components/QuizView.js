@@ -25,6 +25,14 @@ export default class QuizView extends Component {
     }))
   }
 
+  reset = () => {
+    this.setState((state) => ({
+      completed: [],
+      correct: [],
+      cardSide: 'question'
+    }))
+  }
+
   handleResponse = (cardId, isCorrect = false) => {
     this.setState((state) => ({
       cardSide: 'question',
@@ -51,7 +59,13 @@ export default class QuizView extends Component {
             <Text style={styles.quizResultsDetails}>{correct.length}/{cardTotal} ({getPercent(correct.length, cardTotal)}%) correctly</Text>
           </View>
           <TextButton
-            style={{marginTop: 12}}
+            style={{margin: 12}}
+            onPress={() => this.reset()}
+          >
+            Restart Quiz
+          </TextButton>
+          <TextButton
+            style={{margin: 12}}
             onPress={() => this.props.navigation.navigate('DeckView',{deck})}
           >
             Back to deck

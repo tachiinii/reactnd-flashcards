@@ -5,6 +5,7 @@ import baseStyles from '../utils/baseStyles'
 import formStyles from '../utils/formStyles'
 import { formatCard } from '../utils/helpers'
 import { addCard } from '../actions'
+import { saveDeck } from '../utils/api'
 import ActionButton from './ActionButton'
 
 class AddCardView extends Component {
@@ -31,9 +32,17 @@ class AddCardView extends Component {
 
     deckId = navigation.getParam('deck').id
 
+    newCard = formatCard(inputQuestion, inputAnswer)
+
     dispatch(
-      addCard(formatCard(inputQuestion, inputAnswer), deckId)
+      addCard(newCard, deckId)
     )
+
+    saveDeck({
+      [deckId]: {
+        cards: { ...newCard }
+      }
+    })
 
     this.setState({
       inputQuestion: '',
