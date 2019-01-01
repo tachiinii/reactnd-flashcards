@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { deleteDeck } from '../actions'
+import { removeDeck } from '../utils/api'
 import { green } from '../utils/colors'
 import baseStyles from '../utils/baseStyles'
 import ActionButton from './ActionButton'
@@ -22,6 +23,7 @@ class DeckView extends Component {
     this.props.dispatch(
       deleteDeck(deckId)
     )
+    removeDeck(deckId)
     this.props.navigation.navigate('DeckListView')
   }
 

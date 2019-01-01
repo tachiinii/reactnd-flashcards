@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
+import { receiveDecks } from '../actions'
 import { greyLight } from '../utils/colors'
 import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
@@ -10,6 +11,12 @@ import DeckList from './DeckList'
 class DeckListView extends Component {
 
   componentDidMount() {
+    const { dispatch } = this.props
+
+    fetchDecks()
+      .then((decks) => {
+        dispatch(receiveDecks(decks))
+      })
   }
 
   render() {

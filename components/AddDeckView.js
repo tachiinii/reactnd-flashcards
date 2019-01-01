@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, TextInput, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
+import { saveDeck } from '../utils/api'
 import { formatDeck } from '../utils/helpers'
 import baseStyles from '../utils/baseStyles'
 import formStyles from '../utils/formStyles'
@@ -21,9 +22,11 @@ class AddDeckView extends Component {
   handleSubmit = () => {
     const { dispatch, navigation } = this.props
 
-    dispatch(
-      addDeck(formatDeck(this.state.input))
-    )
+    const newDeck = formatDeck(this.state.input)
+
+    dispatch(addDeck(newDeck))
+
+    saveDeck(newDeck, newDeck.id)
 
     this.setState({
       input: ''

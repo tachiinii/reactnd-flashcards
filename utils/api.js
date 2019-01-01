@@ -1,30 +1,29 @@
+import { AsyncStorage } from 'react-native'
+
+const FLASHCARDS_STORAGE_KEY = 'FlashCards:decks'
+
 export function fetchDecks() {
-  return {
-    decks: {
-      '123456': {
-        id: '123456',
-        created: 1545793200,
-        name: 'First API Deck',
-        cards: {
-          '123': {
-            id: '123',
-            created: 1545793215,
-            question: 'Q1',
-            answer: 'A1'
-          },
-          '124': {
-            id: '124',
-            created: 1545793230,
-            question: 'Q2',
-            answer: 'A2'
-          }
-        }
-      },
-      '123457': {
-        id: '123457',
-        name: 'Deck Numero Dos de API',
-        cards: {}
-      }
-    }
-  }
+  return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+    .then((results) => JSON.parse(results)
+    )
+}
+
+export function saveDeck(deck) {
+  return AsyncStorage.mergeItem(
+    FLASHCARDS_STORAGE_KEY,
+    JSON.stringify(deck)
+    )
+}
+
+export function removeDeck(key) {
+  return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results)
+      data[key] = undefined
+      delete data[key]
+      AsyncStorage.setItem(
+        FLASHCARDS_STORAGE_KEY,
+        JSON.stringify(data)
+      )
+    })
 }
