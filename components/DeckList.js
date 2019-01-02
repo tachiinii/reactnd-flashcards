@@ -9,14 +9,23 @@ export default class DeckList extends Component {
 
     return (
       <View>
-        {Object.keys(decks).map((deckId) => (
-          <View key={deckId} style={styles.deckItem}>
-            <TextButton style={styles.deckName} onPress={() => this.props.navigation.navigate('DeckView', {deck: decks[deckId]})}>
-              {decks[deckId].name}
-            </TextButton>
-            <Text style={styles.deckDetails}>{Object.keys(decks[deckId].cards).length} cards</Text>
-          </View>
-        ))}
+        {Object.keys(decks).map((deckId) => {
+          deck = decks[deckId]
+          cardCount = Object.keys(deck.cards).length
+          const { navigation } = this.props
+
+          return (
+            <View key={deckId} style={styles.deckItem}>
+              <TextButton style={styles.deckName} onPress={
+                () => navigation.navigate('DeckView', {deck: decks[deckId]})
+              }>
+                {deck.name}
+              </TextButton>
+              <Text style={styles.deckDetails}>
+                {cardCount} {cardCount === 1 ? 'card' : 'cards'}
+              </Text>
+            </View>
+        )})}
       </View>
     )
   }

@@ -33,7 +33,9 @@ class DeckView extends Component {
 
     return <View style={baseStyles.container}>
       <Text style={styles.deckName}>{deck.name}</Text>
-      <Text style={styles.deckDetails}>{cardCount} cards</Text>
+      <Text style={styles.deckDetails}>
+        {cardCount} {cardCount === 1 ? 'card' : 'cards'}
+      </Text>
       <ActionButton
         label='Add Card'
         onPress={() => this.props.navigation.navigate('AddCardView', {deck})}
@@ -68,9 +70,10 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps(decks, props) {
+function mapStateToProps(decks, { navigation }) {
+  const { deck } = navigation.state.params
   return {
-    deck: decks[props.navigation.state.params.deck.id]
+    deck: decks[deck.id]
   }
 }
 

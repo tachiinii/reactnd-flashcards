@@ -26,13 +26,17 @@ class AddDeckView extends Component {
 
     dispatch(addDeck(newDeck))
 
-    saveDeck(newDeck, newDeck.id)
+    saveDeck(newDeck)
 
     this.setState({
       input: ''
     })
 
-    navigation.navigate('DeckListView')
+    newId = Object.keys(newDeck)[0]
+
+    navigation.navigate('DeckView', {
+      deck: newDeck[newId]
+    })
   }
 
   render() {
