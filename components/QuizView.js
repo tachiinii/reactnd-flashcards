@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import { updateQuiz } from '../actions'
 import { saveDeck } from '../utils/api'
 import { gray, green, white } from '../utils/colors'
-import { getPercent } from '../utils/helpers'
+import {
+  getPercent,
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/helpers'
 import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
 import ActionButton from './ActionButton'
@@ -64,6 +68,9 @@ class QuizView extends Component {
     saveDeck({
       [deckId]: { quiz }
     })
+
+    clearLocalNotification()
+      .then(setLocalNotification())
   }
 
   render() {
