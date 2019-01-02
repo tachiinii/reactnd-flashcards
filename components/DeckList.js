@@ -22,7 +22,10 @@ export default class DeckList extends Component {
                 {deck.name}
               </TextButton>
               <Text style={styles.deckDetails}>
-                {cardCount} {cardCount === 1 ? 'card' : 'cards'}
+                {cardCount} {cardCount === 1 ? 'card' : 'cards'} / Quiz: {deck.quiz.updated
+                  ? `${deck.quiz.score}%`
+                  : 'none'
+                }
               </Text>
             </View>
         )})}

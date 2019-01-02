@@ -8,8 +8,9 @@ export function formatDeck (deckName) {
   return {
     [deckId]: {
       id: deckId,
-      timestamp: Date.now(),
+      created: Date.now(),
       name: deckName,
+      quiz: {},
       cards: {}
     }
   }
@@ -21,7 +22,7 @@ export function formatCard (question, answer) {
   return {
     [cardId]: {
       id: cardId,
-      timestamp: Date.now(),
+      created: Date.now(),
       question: question,
       answer: answer
     }

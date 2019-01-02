@@ -40,6 +40,12 @@ class DeckView extends Component {
         label='Add Card'
         onPress={() => this.props.navigation.navigate('AddCardView', {deck})}
       />
+      <Text style={styles.deckDetails}>
+      {deck.quiz.updated
+        ? `Last quiz: ${deck.quiz.score}% on ${new Date(deck.quiz.updated).toDateString()}`
+        : 'Quiz not completed'
+      }
+      </Text>
       <ActionButton
         label='Start Quiz'
         onPress={() => this.props.navigation.navigate('QuizView', {deck})}

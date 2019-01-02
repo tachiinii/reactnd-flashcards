@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { updateQuiz } from '../actions'
+import { saveDeck } from '../utils/api'
 import { gray, green, white } from '../utils/colors'
 import { getPercent } from '../utils/helpers'
 import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
 import ActionButton from './ActionButton'
 
-export default class QuizView extends Component {
+class QuizView extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: `Quiz: ${navigation.getParam('deck').name}`
@@ -39,6 +42,28 @@ export default class QuizView extends Component {
       completed: state.completed.concat(cardId),
       correct: isCorrect ? state.correct.concat(cardId) : state.correct
     }))
+  }
+
+  componentDidUpdate() {
+    const { deck } = this.props.navigation.state.params
+    const { completed, correct } = this.state
+    cardCount = Object.keys(deck.cards).length
+
+    if (completed.length === cardCount) {
+      this.saveQuiz(correct.length, cardCount, deck.id)
+    }
+  }
+
+  saveQuiz = (numCorrect, numTotal, deckId) => {
+    quiz = {
+      updated: Date.now(),
+      score: getPercent(numCorrect, numTotal)
+    }
+    this.props.dispatch(updateQuiz(quiz, deckId))
+
+    saveDeck({
+      [deckId]: { quiz }
+    })
   }
 
   render() {
@@ -145,3 +170,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+export default connect()(QuizView)

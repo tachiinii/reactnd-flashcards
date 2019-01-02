@@ -2,7 +2,8 @@ import {
   RECEIVE_DECKS,
   ADD_DECK,
   DELETE_DECK,
-  ADD_CARD
+  ADD_CARD,
+  UPDATE_QUIZ
 } from '../actions'
 
 export default function decks(state = {}, action) {
@@ -29,7 +30,7 @@ export default function decks(state = {}, action) {
         ...decks
       }
     case ADD_CARD :
-      const { card, deckId } = action
+      ({ card, deckId } = action)
       return {
         ...state,
         [deckId]: {
@@ -38,6 +39,15 @@ export default function decks(state = {}, action) {
             ...state[deckId].cards,
             ...card
           }
+        }
+      }
+    case UPDATE_QUIZ :
+      ({ quiz, deckId } = action)
+      return {
+        ...state,
+        [deckId]: {
+          ...state[deckId],
+          quiz
         }
       }
     default :
