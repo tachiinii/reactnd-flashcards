@@ -7,8 +7,13 @@ import { greyLight } from '../utils/colors'
 import baseStyles from '../utils/baseStyles'
 import TextButton from './TextButton'
 import DeckList from './DeckList'
+import { AppLoading } from 'expo'
 
 class DeckListView extends Component {
+
+  state = {
+    ready: false
+  }
 
   componentDidMount() {
     const { dispatch } = this.props
@@ -17,10 +22,15 @@ class DeckListView extends Component {
       .then((decks) => {
         dispatch(receiveDecks(decks))
       })
+      .then(() => this.setState({ ready: true }))
   }
 
   render() {
     const { decks, navigation } = this.props
+
+    if (this.state.ready === false) {
+      return <AppLoading />
+    }
 
     if (Object.keys(decks).length === 0) {
       return <View style={baseStyles.container}>
