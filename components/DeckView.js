@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { deleteDeck } from '../actions'
 import { removeDeck } from '../utils/api'
@@ -20,6 +20,18 @@ class DeckView extends Component {
   }
 
   handleDelete = (deckId) => {
+    Alert.alert(
+      'Delete Deck',
+      'Are you sure you want to delete?',
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {text: 'OK', onPress: () => this.doDelete(deckId)},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  doDelete = (deckId) => {
     this.props.dispatch(
       deleteDeck(deckId)
     )
